@@ -1,0 +1,9 @@
+Carrera: Diseño y Desarrollo Web
+Materia: Clientes Web Mobile
+Cuatrimestre: 4to cuatrimestre
+Año: 2025
+Turno: Tarde
+Comisión: A
+Apellido y nombre: Crupnicoff Lara
+Docente: Gallino Santiago
+Carácter de entrega: 1er parcial
