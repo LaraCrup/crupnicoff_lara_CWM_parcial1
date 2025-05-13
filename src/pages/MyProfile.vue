@@ -29,10 +29,10 @@ export default {
         <MainH1>Mi Perfil</MainH1>
         <router-link to="/mi-perfil/editar"
             class="absolute top-0 right-0 text-light font-semibold bg-midGreen rounded-3xl py-2 px-4 hover:bg-darkGreen transition duration-300">Editar</router-link>
-        <div class="flex flex-col items-center gap-4 bg-lightPink rounded-2xl py-8 px-12">
-            <p class="text-center"><strong class="block">Email</strong>{{ user.email }}</p>
-            <p class="text-center"><strong class="block">Nombre de Usuario</strong>{{ user.display_name || "No especificado" }}</p>
-            <p class="text-center"><strong class="block">Biografia</strong>{{ user.bio || "No especificado" }}</p>
+        <div class="flex flex-col items-center gap-6 bg-lightPink rounded-2xl py-8 px-12">
+            <p class="text-center"><strong class="block text-xl mb-1">Email</strong>{{ user.email }}</p>
+            <p class="text-center"><strong class="block text-xl mb-1">Nombre de Usuario</strong>{{ user.display_name || "No especificado" }}</p>
+            <p class="text-center"><strong class="block text-xl mb-1">Biografia</strong>{{ user.bio || "No especificado" }}</p>
         </div>
     </MainSection>
 </template>

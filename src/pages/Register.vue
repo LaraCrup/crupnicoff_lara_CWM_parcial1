@@ -62,6 +62,8 @@ export default {
       try {
         const user = await register(this.user.email, this.user.password);
         if (user) {
+          this.user.email = '';
+          this.user.password = '';
           this.registrationSuccess = true;
         }
       } catch (error) {
@@ -76,7 +78,7 @@ export default {
   <MainSection>
     <MainH1>Registrate</MainH1>
     <SystemAlert v-if="registrationSuccess">
-      <p class="text-darkPink">¡Registro exitoso! Por favor, verifica tu email antes de iniciar sesión.</p>
+      <p>¡Registro exitoso! Por favor, verifica tu email antes de iniciar sesión.</p>
     </SystemAlert>
     <MainLayout action="#" @submit.prevent="handleSubmit">
       <div class="w-full grid grid-cols-2 gap-8">

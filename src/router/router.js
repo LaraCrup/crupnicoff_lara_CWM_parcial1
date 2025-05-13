@@ -7,6 +7,7 @@ import MyProfile from "../pages/MyProfile.vue";
 import MyProfileEdit from "../pages/MyProfileEdit.vue";
 import UserProfile from "../pages/UserProfile.vue";
 import MyHabits from "../pages/MyHabits.vue";
+import MyHabitsCreate from "../pages/MyHabitsCreate.vue";
 
 const routes = [
     { path: '/',                    component: HomeFeed, meta: { requiresAuth: true } },
@@ -15,7 +16,8 @@ const routes = [
     { path: '/mi-perfil',           component: MyProfile, meta: { requiresAuth: true } },
     { path: '/mi-perfil/editar',    component: MyProfileEdit, meta: { requiresAuth: true } },
     { path: '/usuario/:id',         component: UserProfile, meta: { requiresAuth: true } },
-    { path: '/mis-habitos',         component: MyHabits, meta: { requiresAuth: true } }
+    { path: '/mis-habitos',         component: MyHabits, meta: { requiresAuth: true } },
+    { path: '/mis-habitos/crear',   component: MyHabitsCreate, meta: { requiresAuth: true } },
   ]
 
 const router = createRouter({

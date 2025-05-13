@@ -1,0 +1,33 @@
+import supabase from "./supabase.js";  
+
+export async function getMyHabits(user_id) {
+    const { data, error } = await supabase.from('habits')
+        .select('*')
+        .eq('user_id', user_id)
+        .order('created_at', { ascending: false })  
+        .limit(10);
+    if (error) {
+        console.error('Error fetching habits:', error); 
+        throw error;
+    }
+    return data;
+}
+
+export async function saveNewHabit(data) {
+    const { error } = await supabase
+        .from('habits')
+        .insert({
+            title: data.habit.title,
+            goal_quantity: data.habit.goal_quantity,
+            goal_unit: data.habit.goal_unit,
+            frequency: data.habit.frequency,
+            user_id: data.user_id,
+        });
+
+    if (error) {
+        console.error('Error saving habit:', error);
+        throw error;
+    }
+    
+    return { success: true };
+}

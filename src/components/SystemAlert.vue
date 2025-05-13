@@ -1,5 +1,5 @@
 <template>
-    <dialog class="text-center bg-lightPink text-darkPink rounded-lg p-4">
+    <div class="text-center bg-lightPink text-light rounded-lg p-4">
         <slot />
-    </dialog>
+    </div>
 </template>
