@@ -41,26 +41,28 @@ export async function register(email, password) {
         email,
         password,
     });
+    
     if (error) {
-        console.log('Error al registrarse:', error);
         throw error;
     }
 
-    try {
-        await addUserProfile({
-            id: data.user.id,
-            email,
-        });
-    } catch (error) {
-        console.error('Error al crear el perfil del usuario:', error);
+    if (data.user) {
+        try {
+            await addUserProfile({
+                id: data.user.id,
+                email,
+            });
+            
+            updateUser({
+                id: data.user.id,
+                email: data.user.email, 
+            });
+            
+            return data.user;
+        } catch (error) {
+            throw new Error('Error al crear el usuario');
+        }
     }
-
-    //Actualizamos los datos del usuario y notificamos a los observers
-    updateUser({
-        id: data.user.id,
-        email: data.user.email, 
-    });
-    return data.user;
 }
 
 export async function login(email, password) {

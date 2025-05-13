@@ -7,7 +7,6 @@ export async function addUserProfile(data) {
             ...data
         });
     if (error) {
-        console.error('Error al guardar el perfil:', error);
         throw new Error('Error al guardar el perfil:'.error);
     }
 }

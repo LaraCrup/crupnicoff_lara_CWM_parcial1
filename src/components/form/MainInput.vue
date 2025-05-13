@@ -7,7 +7,7 @@ export default {
 </script>
 
 <template>
-    <input class="w-full py-2 px-4 border border-gray-400 rounded"
+    <input class="w-full py-2 px-4 border border-midGreen rounded-lg active:border-darkGreen focus:border-darkGreen focus:outline-none"
     :value="modelValue"
     @input="$emit('update:model-value', $event.target.value)" />
 </template>

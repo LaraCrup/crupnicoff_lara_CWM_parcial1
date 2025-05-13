@@ -2,11 +2,13 @@
 import { RouterView } from 'vue-router';
 import HomeFeed from './pages/HomeFeed.vue';
 import { subscribeToAuth, logout } from './services/auth.js';
+import LinkMenu from './components/nav/LinkMenu.vue';
+import MainButton from './components/MainButton.vue';
 
 export default {
   name: 'App',
   components: {
-    HomeFeed
+    HomeFeed, LinkMenu, MainButton
   },
   data() {
     return {
@@ -30,41 +32,29 @@ export default {
 </script>
 
 <template>
-  <nav class="flex items-center gap-8 p-4 bg-blue-200">
-    <router-link to="/" class="text-lg">Hábitos Conectados</router-link>
-    <ul class="flex items-center gap-4">
-      <li>
-        <router-link to="/">Inicio</router-link>
-      </li>
+  <nav class="flex items-center justify-between py-8 px-24 bg-darkGreen text-lightPink">
+    <router-link to="/" class="text-xl font-bold">Hábitos Conectados</router-link>
+    <ul class="flex items-center gap-12 ">
       <template v-if="user.id === null">
-        <li>
-          <router-link to="/log-in">Iniciar Sesión</router-link>
-        </li>
-        <li>
-          <router-link to="/register">Registrarse</router-link>
-        </li>
+        <LinkMenu link="/log-in">Iniciar Sesión</LinkMenu>
+        <LinkMenu link="/register">Registrarse</LinkMenu>
       </template>
       <template v-else>
-        <li>
-          <router-link to="/mis-habitos">Mis habitos</router-link>
-        </li>
-        <li>
-          <router-link to="/mi-perfil">Mi Perfil</router-link>
-        </li>
+        <LinkMenu link="/">Inicio</LinkMenu>
+        <LinkMenu link="/mis-habitos">Mis habitos</LinkMenu>
+        <LinkMenu link="/mi-perfil">Mi Perfil</LinkMenu>
         <li>
           <form @submit.prevent="handleLogout">
-            <button type="submit"
-              class="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-950 focus:bg-blue-950 transition duration-150 cursor-pointer">Cerrar
-              Sesión</button>
+            <MainButton type="submit">Cerrar Sesión</MainButton>
           </form>
         </li>
       </template>
     </ul>
   </nav>
-  <div class="container mx-auto p-4">
+  <main class="py-12 px-24 bg-light">
     <RouterView />
-  </div>
-  <footer class="flex justify-center items-center h-15 bg-slate-800 text-white">
-    <p>Da Vinci</p>
+  </main>
+  <footer class="flex justify-center items-center h-20 bg-darkGreen text-lightPink font-semibold">
+    <p>Lara Crupnicoff - Da Vinci</p>
   </footer>
 </template>
