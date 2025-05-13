@@ -3,12 +3,12 @@ import { RouterView } from 'vue-router';
 import HomeFeed from './pages/HomeFeed.vue';
 import { subscribeToAuth, logout } from './services/auth.js';
 import LinkMenu from './components/nav/LinkMenu.vue';
-import MainButton from './components/MainButton.vue';
+import PrimaryButton from './components/PrimaryButton.vue';
 
 export default {
   name: 'App',
   components: {
-    HomeFeed, LinkMenu, MainButton
+    HomeFeed, LinkMenu, PrimaryButton
   },
   data() {
     return {
@@ -45,7 +45,7 @@ export default {
         <LinkMenu link="/mi-perfil">Mi Perfil</LinkMenu>
         <li>
           <form @submit.prevent="handleLogout">
-            <MainButton type="submit">Cerrar Sesión</MainButton>
+            <PrimaryButton type="submit">Cerrar Sesión</PrimaryButton>
           </form>
         </li>
       </template>

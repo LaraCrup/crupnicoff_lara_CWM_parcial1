@@ -32,7 +32,7 @@ export default {
             default: ''
         },
         autocomplete: {
-            type: String,
+            type: String || Boolean,
             default: ''
         },
         error: {
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <template>
-    <div class="flex flex-col gap-2">
+    <div class="w-full flex flex-col gap-2">
         <MainLabel :for="id">{{ label }}</MainLabel>
         <MainInput :id="id" :type="type" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)"
             :placeholder="placeholder" :autocomplete="autocomplete" />

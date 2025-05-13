@@ -2,13 +2,16 @@
 import { register } from '../services/auth.js';
 import MainH1 from '../components/MainH1.vue';
 import TextField from '../components/form/TextField.vue';
-import MainButton from '../components/MainButton.vue';
+import PrimaryButton from '../components/PrimaryButton.vue';
 import MainError from '../components/form/MainError.vue';
+import MainSection from '../components/MainSection.vue';
+import MainLayout from '../components/form/MainLayout.vue';
+import SystemAlert from '../components/SystemAlert.vue';
 
 export default {
   name: 'Register',
   components: {
-    MainH1, TextField, MainButton, MainError
+    MainH1, TextField, PrimaryButton, MainError, MainSection, MainLayout, SystemAlert
   },
   data() {
     return {
@@ -70,36 +73,27 @@ export default {
 </script>
 
 <template>
-  <MainH1>Registrate</MainH1>
-  <dialog v-if="registrationSuccess" class="text-center p-4 bg-lightPink rounded-lg mb-4">
-    <p class="text-darkPink">¡Registro exitoso! Por favor, verifica tu email antes de iniciar sesión.</p>
-  </dialog>
-  <form action="#" @submit.prevent="handleSubmit" class="flex flex-col items-center gap-8">
-    <div class="w-full grid grid-cols-2 gap-8">
-      <TextField 
-        id="email" 
-        label="Email" 
-        type="email" 
-        v-model="user.email"
-        placeholder="Email" 
-        autocomplete="email" 
-        :error="errors.email"/>
-      <TextField 
-        id="password" 
-        label="Contraseña" 
-        type="password" 
-        v-model="user.password"
-        placeholder="Contraseña" 
-        autocomplete="new-password" 
-        :error="errors.password"/>
+  <MainSection>
+    <MainH1>Registrate</MainH1>
+    <SystemAlert v-if="registrationSuccess">
+      <p class="text-darkPink">¡Registro exitoso! Por favor, verifica tu email antes de iniciar sesión.</p>
+    </SystemAlert>
+    <MainLayout action="#" @submit.prevent="handleSubmit">
+      <div class="w-full grid grid-cols-2 gap-8">
+        <TextField id="email" label="Email" type="email" v-model="user.email" placeholder="Email" autocomplete="email"
+          :error="errors.email" />
+        <TextField id="password" label="Contraseña" type="password" v-model="user.password" placeholder="Contraseña"
+          autocomplete="false" :error="errors.password" />
+      </div>
+      <MainError v-if="supabaseError">{{ this.supabaseError }}</MainError>
+      <PrimaryButton type="submit">Crear Cuenta</PrimaryButton>
+    </MainLayout>
+    <div>
+      <p class="text-center text-sm text-dark">
+        ¿Ya tienes cuenta?
+        <router-link to="/log-in"
+          class="font-semibold text-midGreen hover:text-darkPink transition duration-300 ">Inicia Sesión</router-link>
+      </p>
     </div>
-    <MainError v-if="supabaseError">{{ this.supabaseError }}</MainError>
-    <MainButton type="submit">Crear Cuenta</MainButton>
-  </form>
-  <div class="mt-8">
-    <p class="text-center text-sm text-dark">
-      ¿Ya tienes cuenta? 
-      <router-link to="/log-in" class="font-semibold text-midGreen hover:text-darkPink transition duration-300 ">Inicia Sesión</router-link>
-    </p>
-  </div>
+  </MainSection>
 </template>
