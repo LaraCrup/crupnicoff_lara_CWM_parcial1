@@ -72,7 +72,7 @@ export async function login(email, password) {
     });
     if (error) {
         console.log('Error al hacer log in:', error);
-        throw error;
+        throw new Error(error.message);
     }
 
     updateUser({
