@@ -29,21 +29,12 @@ export default {
         this.errors.email = 'El email es requerido';
         return false;
       }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(this.user.email)) {
-        this.errors.email = 'El email no es válido';
-        return false;
-      }
       this.errors.email = '';
       return true;
     },
     validatePassword() {
       if (!this.user.password) {
         this.errors.password = 'La contraseña es requerida';
-        return false;
-      }
-      if (this.user.password.length < 6) {
-        this.errors.password = 'La contraseña debe tener al menos 6 caracteres';
         return false;
       }
       this.errors.password = '';
@@ -86,4 +77,10 @@ export default {
     <MainError v-if="supabaseError">{{ this.supabaseError }}</MainError>
     <MainButton type="submit">Iniciar Sesión</MainButton>
   </form>
+  <div class="mt-8">
+    <p class="text-center text-sm text-dark">
+      ¿No tienes cuenta? 
+      <router-link to="/register" class="font-semibold text-midGreen hover:text-darkPink transition duration-300 ">Regístrate</router-link>
+    </p>
+  </div>
 </template>

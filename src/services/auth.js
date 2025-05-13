@@ -52,12 +52,6 @@ export async function register(email, password) {
                 id: data.user.id,
                 email,
             });
-            
-            updateUser({
-                id: data.user.id,
-                email: data.user.email, 
-            });
-            
             return data.user;
         } catch (error) {
             throw new Error('Error al crear el usuario');

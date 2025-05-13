@@ -20,7 +20,8 @@ export default {
         email: '',
         password: ''
       },
-      supabaseError: ""
+      supabaseError: "",
+      registrationSuccess: false
     }
   },
   methods: {
@@ -51,13 +52,14 @@ export default {
     },
     async handleSubmit() {
       this.supabaseError = "";
+      this.registrationSuccess = false;
       if (!this.validateEmail() || !this.validatePassword()) {
         return;
       }
       try {
         const user = await register(this.user.email, this.user.password);
         if (user) {
-          this.$router.push('/');
+          this.registrationSuccess = true;
         }
       } catch (error) {
         this.supabaseError = error.message;
@@ -69,6 +71,9 @@ export default {
 
 <template>
   <MainH1>Registrate</MainH1>
+  <dialog v-if="registrationSuccess" class="text-center p-4 bg-lightPink rounded-lg mb-4">
+    <p class="text-darkPink">¡Registro exitoso! Por favor, verifica tu email antes de iniciar sesión.</p>
+  </dialog>
   <form action="#" @submit.prevent="handleSubmit" class="flex flex-col items-center gap-8">
     <div class="w-full grid grid-cols-2 gap-8">
       <TextField 
@@ -91,4 +96,10 @@ export default {
     <MainError v-if="supabaseError">{{ this.supabaseError }}</MainError>
     <MainButton type="submit">Crear Cuenta</MainButton>
   </form>
+  <div class="mt-8">
+    <p class="text-center text-sm text-dark">
+      ¿Ya tienes cuenta? 
+      <router-link to="/log-in" class="font-semibold text-midGreen hover:text-darkPink transition duration-300 ">Inicia Sesión</router-link>
+    </p>
+  </div>
 </template>
