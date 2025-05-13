@@ -11,6 +11,10 @@ let observers = [];
 
 loadCurrentUser();
 
+if(localStorage.getItem('user')){
+    user = JSON.parse(localStorage.getItem('user'));
+}
+
 async function loadCurrentUser(){
     const {data} = await supabase.auth.getUser();
     if(!data?.user){
@@ -105,6 +109,10 @@ function updateUser(data) {
         ...user,
         ...data
     }
+
+    if(user.id !== null){
+        localStorage.setItem('user', JSON.stringify(user));
+    }
     notifyAll();
 }
 
@@ -113,6 +121,7 @@ export async function updateAuthProfile(data){
         await updateUserProfile(user.id, {
             ...data
         });
+        
         updateUser(data);
     } catch (error) {
         console.error('Error al actualizar el perfil del usuario autenticado', error);

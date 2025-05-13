@@ -8,6 +8,7 @@ import MyProfileEdit from "../pages/MyProfileEdit.vue";
 import UserProfile from "../pages/UserProfile.vue";
 import MyHabits from "../pages/MyHabits.vue";
 import MyHabitsCreate from "../pages/MyHabitsCreate.vue";
+import MyHabitsEdit from "../pages/MyHabitsEdit.vue";
 
 const routes = [
     { path: '/',                    component: HomeFeed, meta: { requiresAuth: true } },
@@ -18,6 +19,7 @@ const routes = [
     { path: '/usuario/:id',         component: UserProfile, meta: { requiresAuth: true } },
     { path: '/mis-habitos',         component: MyHabits, meta: { requiresAuth: true } },
     { path: '/mis-habitos/crear',   component: MyHabitsCreate, meta: { requiresAuth: true } },
+    { path: '/mis-habitos/editar/:id',   component: MyHabitsEdit, meta: { requiresAuth: true } },
   ]
 
 const router = createRouter({
