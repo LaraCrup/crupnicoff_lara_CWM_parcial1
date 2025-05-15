@@ -4,6 +4,7 @@ import MainH1 from '../components/MainH1.vue';
 import MainLayout from '../components/form/MainLayout.vue';
 import MainError from '../components/form/MainError.vue';
 import MainLabel from '../components/form/MainLabel.vue';
+import MainTextarea from '../components/form/MainTextarea.vue';
 import { subscribeToAuth } from '../services/auth';
 import { getMyHabits } from '../services/my-habits';
 import { saveHabitDocument } from '../services/document-habits';
@@ -12,7 +13,7 @@ import PrimaryButton from '../components/PrimaryButton.vue';
 export default {
     name: 'CreatePost',
     components: {
-        MainSection, MainH1, MainLayout, MainError, MainLabel, PrimaryButton
+        MainSection, MainH1, MainLayout, MainError, MainLabel, PrimaryButton, MainTextarea
     },
     data() {
         return {
@@ -79,32 +80,26 @@ export default {
 <template>
     <MainSection>
         <MainH1>Documentar un hábito</MainH1>
-        <MainLayout @submit.prevent="handleSubmit">
-            <div class="w-full grid grid-cols-2 gap-8">
-                <div class="flex flex-col gap-2">
-                    <MainLabel :for="'habit'">Hábito</MainLabel>
-                    <select 
-                        id="habit"
-                        v-model="selectedHabit"
-                        class="bg-transparent py-2 px-4 border border-midGreen rounded-lg active:border-darkGreen focus:border-darkGreen focus:outline-none"
-                    >
-                        <option value="" disabled selected>Selecciona uno de tus habitos</option>
-                        <option v-for="habit in habits" :key="habit.id" :value="habit.id">
-                            {{ habit.title }}
-                        </option>
-                    </select>
-                    <MainError v-if="errors.habit">{{ errors.habit }}</MainError>
-                </div>
-                <div class="w-full flex flex-col gap-2">
-                    <MainLabel for="content">Documenta tu hábito</MainLabel>
-                    <textarea 
-                        id="content" 
-                        v-model="content" 
-                        placeholder="Cuentale a la comunidad como te fue con tu hábito hoy"
-                        class="w-full h-28 py-2 px-4 border border-midGreen rounded-lg resize-none active:border-darkGreen focus:border-darkGreen focus:outline-none" 
-                    />
-                    <MainError v-if="errors.content">{{ errors.content }}</MainError>
-                </div>
+        <MainLayout @submit.prevent="handleSubmit" class="max-w-2xl">
+            <div class="w-full flex flex-col gap-2">
+                <MainLabel :for="'habit'">Hábito</MainLabel>
+                <select id="habit" v-model="selectedHabit"
+                    class="bg-transparent py-2 px-4 border border-midGreen rounded-lg active:border-darkGreen focus:border-darkGreen focus:outline-none">
+                    <option value="" disabled selected>Selecciona uno de tus habitos</option>
+                    <option v-for="habit in habits" :key="habit.id" :value="habit.id">
+                        {{ habit.title }}
+                    </option>
+                </select>
+                <MainError v-if="errors.habit">{{ errors.habit }}</MainError>
+            </div>
+            <div class="w-full flex flex-col gap-2">
+                <MainLabel for="content">Documenta tu hábito</MainLabel>
+                <MainTextarea 
+                    id="content"
+                    v-model="content"
+                    placeholder="Cuentale a la comunidad como te fue con tu hábito hoy"
+                />
+                <MainError v-if="errors.content">{{ errors.content }}</MainError>
             </div>
             <MainError v-if="errors.general">{{ errors.general }}</MainError>
             <PrimaryButton type="submit">Publicar</PrimaryButton>

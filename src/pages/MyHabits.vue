@@ -75,6 +75,7 @@ export default {
                 :goal_quantity="habit.goal_quantity" 
                 :goal_unit="habit.goal_unit" 
                 :frequency="transformFrequency(habit.frequency)"
+                @delete="handleDeleteIntent"
             >
             </HabitCard>
         </div>

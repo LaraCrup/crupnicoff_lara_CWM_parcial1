@@ -1,0 +1,42 @@
+<template>
+    <div v-if="show" class="fixed inset-0 bg-dark/60 flex items-center justify-center">
+        <div class="relative max-w-2xl w-full flex flex-col gap-6 bg-light rounded-xl p-12">
+            <div class="absolute top-2 right-4">
+                <button @click="$emit('close')" class="text-darkGreen text-5xl">&times;</button>
+            </div>
+            <HabitUpdateCard :username="habitData.profiles.display_name" :posted_at="habitData.created_at"
+                :habit="habitData.habits.title" :goal_quantity="habitData.habits.goal_quantity"
+                :goal_unit="habitData.habits.goal_unit" :frequency="habitData.habits.frequency"
+                :content="habitData.content" :user_id="habitData.user_id" :isCurrentUser="isCurrentUser" :commenting="true" />
+            <SectionComments :post_id="habitData.id" :username="habitData.profiles?.display_name"
+                :posted_at="new Date(habitData.created_at).toLocaleDateString()" :comment="habitData.content" />
+        </div>
+    </div>
+</template>
+
+<script>
+import HabitUpdateCard from './HabitUpdateCard.vue'
+import SectionComments from './SectionComments.vue'
+
+export default {
+    name: 'ModalCommentPost',
+    components: {
+        HabitUpdateCard,
+        SectionComments
+    },
+    props: {
+        show: {
+            type: Boolean,
+            default: false
+        },
+        habitData: {
+            type: Object,
+            required: true
+        },
+        isCurrentUser: {
+            type: Boolean,
+            default: false
+        }
+    }
+}
+</script>

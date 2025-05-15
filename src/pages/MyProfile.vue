@@ -46,8 +46,12 @@ export default {
 <template>
     <MainSection class="relative">
         <MainH1>Mi Perfil</MainH1>
-        <router-link to="/mi-perfil/editar"
-            class="absolute top-0 right-0 text-light font-semibold bg-midGreen rounded-3xl py-2 px-4 hover:bg-darkGreen transition duration-300">Editar</router-link>
+        <div class="absolute top-0 right-0 flex gap-4">
+            <router-link to="/mi-perfil/editar"
+                class="text-light font-semibold bg-midGreen rounded-3xl py-2 px-4 hover:bg-darkGreen transition duration-300">Editar</router-link>
+            <router-link to="/mi-perfil/cambiar-contrasena"
+                class="text-light font-semibold bg-midGreen rounded-3xl py-2 px-4 hover:bg-darkGreen transition duration-300">Cambiar contraseña</router-link>
+        </div>
         <ProfileCard :email="user.email" :display_name="user.display_name" :bio="user.bio" />
     </MainSection>
     <MainSection>

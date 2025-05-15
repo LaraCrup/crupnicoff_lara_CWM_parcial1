@@ -18,10 +18,12 @@ export default {
       user: {
         email: '',
         password: '',
+        display_name: ''
       },
       errors: {
         email: '',
-        password: ''
+        password: '',
+        display_name: ''
       },
       supabaseError: "",
       registrationSuccess: false
@@ -53,17 +55,30 @@ export default {
       this.errors.password = '';
       return true;
     },
+    validateDisplayName() {
+      if (!this.user.display_name) {
+        this.errors.display_name = 'El nombre de usuario es requerido';
+        return false;
+      }
+      if (this.user.display_name.length < 3) {
+        this.errors.display_name = 'El nombre de usuario debe tener al menos 3 caracteres';
+        return false;
+      }
+      this.errors.display_name = '';
+      return true;
+    },
     async handleSubmit() {
       this.supabaseError = "";
       this.registrationSuccess = false;
-      if (!this.validateEmail() || !this.validatePassword()) {
+      if (!this.validateEmail() || !this.validatePassword() || !this.validateDisplayName()) {
         return;
       }
       try {
-        const user = await register(this.user.email, this.user.password);
+        const user = await register(this.user.email, this.user.password, this.user.display_name);
         if (user) {
           this.user.email = '';
           this.user.password = '';
+          this.user.display_name = '';
           this.registrationSuccess = true;
         }
       } catch (error) {
@@ -82,10 +97,12 @@ export default {
     </SystemAlert>
     <MainLayout action="#" @submit.prevent="handleSubmit">
       <div class="w-full grid grid-cols-2 gap-8">
-        <TextField id="email" label="Email" type="email" v-model="user.email" placeholder="Email" autocomplete="email"
-          :error="errors.email" />
-        <TextField id="password" label="Contraseña" type="password" v-model="user.password" placeholder="Contraseña"
-          autocomplete="false" :error="errors.password" />
+        <TextField id="display_name" label="Nombre de usuario" type="text" v-model="user.display_name" 
+          placeholder="Nombre de usuario" :error="errors.display_name" />
+        <TextField id="email" label="Email" type="email" v-model="user.email" placeholder="Email" 
+          autocomplete="email" :error="errors.email" />
+        <TextField id="password" label="Contraseña" type="password" v-model="user.password" 
+          placeholder="Contraseña" autocomplete="false" :error="errors.password" />
       </div>
       <MainError v-if="supabaseError">{{ this.supabaseError }}</MainError>
       <PrimaryButton type="submit">Crear Cuenta</PrimaryButton>

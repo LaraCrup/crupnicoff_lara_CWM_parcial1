@@ -5,11 +5,12 @@ import PrimaryButton from '../components/PrimaryButton.vue';
 import { subscribeToAuth } from '../services/auth';
 import { getAllHabitUpdates } from '../services/document-habits';
 import HabitUpdateCard from '../components/posts/HabitUpdateCard.vue';
+import ModalCommentPost from '../components/posts/ModalCommentPost.vue';
 
 export default {
     name: 'HomeFeed',
     components: {
-        MainSection, MainH1, PrimaryButton, HabitUpdateCard
+        MainSection, MainH1, PrimaryButton, HabitUpdateCard, ModalCommentPost
     },
     data() {
         return {
@@ -17,7 +18,9 @@ export default {
                 id: null,
                 email: null,
             },
-            habitUpdates: []
+            habitUpdates: [],
+            showModal: false,
+            selectedHabit: null
         }
     },
     methods: {
@@ -31,6 +34,14 @@ export default {
                 'mensual': 'mes'
             };
             return frequencyMap[frequency] || frequency;
+        },
+        openModal(habitData) {
+            this.selectedHabit = habitData            
+            this.showModal = true
+        },
+        closeModal() {
+            this.showModal = false
+            this.selectedHabit = null
         }
     },
     mounted() {
@@ -59,7 +70,15 @@ export default {
                 :frequency="transformFrequency(habitPost.habits.frequency)"
                 :content="habitPost.content"
                 :is-current-user="habitPost.user_id === user.id"
+                @open-comments="() => openModal(habitPost)"
             />
         </div>
+        <ModalCommentPost 
+            v-if="showModal"
+            :show="showModal"
+            :habitData="selectedHabit"
+            :isCurrentUser="selectedHabit.user_id === user.id"
+            @close="closeModal"
+        />
     </MainSection>
 </template>

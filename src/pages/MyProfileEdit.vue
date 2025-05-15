@@ -5,6 +5,7 @@ import MainLayout from '../components/form/MainLayout.vue';
 import PrimaryButton from '../components/PrimaryButton.vue';
 import TextField from '../components/form/TextField.vue';
 import MainLabel from '../components/form/MainLabel.vue';
+import MainTextarea from '../components/form/MainTextarea.vue';
 import SystemAlert from '../components/SystemAlert.vue';
 import { subscribeToAuth } from '../services/auth';
 import { updateAuthProfile } from '../services/auth';
@@ -12,7 +13,7 @@ import { updateAuthProfile } from '../services/auth';
 export default {
     name: 'MyProfileEdit',
     components: {
-        MainH1, MainSection, MainLayout, TextField, PrimaryButton, MainLabel, SystemAlert
+        MainH1, MainSection, MainLayout, TextField, PrimaryButton, MainLabel, SystemAlert, MainTextarea
     },
     data() {
         return {
@@ -68,8 +69,11 @@ export default {
             <TextField id="displayName" label="Nombre de Usuario" type="text" v-model="profile.display_name" placeholder="Nombre de Usuario" autocomplete="false" :error="displayNameError" />
             <div class="w-full flex flex-col gap-2">
                 <MainLabel for="bio">Biografia</MainLabel>
-                <textarea id="bio" v-model="profile.bio" placeholder="Biografia"
-                    class="w-full h-28 py-2 px-4 border border-midGreen rounded-lg resize-none active:border-darkGreen focus:border-darkGreen focus:outline-none" />
+                <MainTextarea 
+                    id="bio"
+                    v-model="profile.bio"
+                    placeholder="Biografia"
+                />
             </div>
             <PrimaryButton type="submit">Actualizar</PrimaryButton>
         </MainLayout>

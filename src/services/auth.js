@@ -40,7 +40,8 @@ async function loadCurrentUserProfile(){
 
 }
 
-export async function register(email, password) {
+export async function register(email, password, display_name) {
+    // Primero registramos en auth
     const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -50,16 +51,30 @@ export async function register(email, password) {
         throw error;
     }
 
-    if (data.user) {
-        try {
-            await addUserProfile({
-                id: data.user.id,
-                email,
-            });
-            return data.user;
-        } catch (error) {
-            throw new Error('Error al crear el usuario');
-        }
+    if (!data.user) {
+        throw new Error('No se pudo crear el usuario');
+    }
+
+    try {
+        // Una vez que tenemos el usuario autenticado, creamos el perfil
+        await addUserProfile({
+            id: data.user.id,
+            email: data.user.email,
+            display_name: display_name,
+        });
+
+        // Actualizamos el usuario local con los datos
+        updateUser({
+            id: data.user.id,
+            email: data.user.email,
+            display_name: display_name
+        });
+
+        return data.user;
+    } catch (error) {
+        // Si falla la creación del perfil, deberíamos considerar eliminar el usuario de auth
+        console.error('Error al crear el perfil:', error);
+        throw new Error('Error al crear el perfil de usuario');
     }
 }
 
@@ -128,4 +143,16 @@ export async function updateAuthProfile(data){
         throw error;
         
     }
+}
+
+export async function changePassword(newPassword) {
+    const { error } = await supabase.auth.updateUser({ 
+        password: newPassword 
+    });
+    
+    if (error) {
+        throw error;
+    }
+    
+    return { success: true };
 }

@@ -1,5 +1,5 @@
 <template>
-    <div v-if="isOpen" class="fixed inset-0 bg-black/60 flex items-center justify-center">
+    <div v-if="isOpen" class="fixed inset-0 bg-dark/60 flex items-center justify-center">
         <div class="w-96 flex flex-col items-center gap-3 bg-light rounded-xl p-8">
             <h2 class="text-xl font-bold">Confirmar eliminación</h2>
             <p class="text-center">¿Estás seguro de que quieres eliminar este hábito?</p>
