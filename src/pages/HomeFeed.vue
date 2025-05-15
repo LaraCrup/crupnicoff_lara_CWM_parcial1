@@ -3,7 +3,7 @@ import MainH1 from '../components/MainH1.vue';
 import MainSection from '../components/MainSection.vue';
 import PrimaryButton from '../components/PrimaryButton.vue';
 import { subscribeToAuth } from '../services/auth';
-import { getAllHabitUpdates, subscribeToHabitUpdates } from '../services/document-habits';
+import { getAllHabitUpdates } from '../services/document-habits';
 import HabitUpdateCard from '../components/posts/HabitUpdateCard.vue';
 
 export default {
@@ -24,11 +24,6 @@ export default {
         async loadHabitUpdates() {
             this.habitUpdates = await getAllHabitUpdates();
         },
-        setupRealtimeSubscription() {
-            subscribeToHabitUpdates((updates) => {
-                this.habitUpdates = updates;
-            });
-        },
         transformFrequency(frequency) {
             const frequencyMap = {
                 'diario': 'día',
@@ -42,7 +37,6 @@ export default {
         subscribeToAuth(newUserData => {
             this.user = newUserData;
             this.loadHabitUpdates();
-            this.setupRealtimeSubscription();
         });
     }
 }

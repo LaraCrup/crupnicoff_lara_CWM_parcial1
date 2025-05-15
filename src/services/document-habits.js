@@ -64,21 +64,3 @@ export async function getHabitUpdatesByUserId(userId) {
     
     return data;
 }
-
-export function subscribeToHabitUpdates(callback) {
-    supabase
-        .channel('habit_updates_channel')
-        .on(
-            'postgres_changes',
-            {
-                event: '*',
-                schema: 'public',
-                table: 'habit_updates'
-            },
-            async () => {
-                const updates = await getAllHabitUpdates();
-                callback(updates);
-            }
-        )
-        .subscribe();
-}
