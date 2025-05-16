@@ -1,8 +1,8 @@
 <template>
-    <div class="flex flex-col items-center gap-6 bg-lightPink rounded-2xl shadow-lg py-8 px-12">
-        <p class="text-center"><strong class="block text-xl mb-1">Email</strong>{{ email }}</p>
-        <p class="text-center"><strong class="block text-xl mb-1">Nombre de Usuario</strong>{{ display_name || "No especificado" }}</p>
-        <p class="text-center"><strong class="block text-xl mb-1">Biografia</strong>{{ bio || "No especificado" }}
+    <div class="flex flex-col items-center gap-3 bg-lightPink rounded-2xl shadow-lg py-2 px-4 md:py-8 md:px-12 md:gap-6">
+        <p class="text-center text-sm md:text-md"><strong class="block text-md mb-1 md:text-xl">Email</strong>{{ email }}</p>
+        <p class="text-center text-sm md:text-md"><strong class="block text-md mb-1 md:text-xl">Nombre de Usuario</strong>{{ display_name || "No especificado" }}</p>
+        <p class="text-center text-sm md:text-md"><strong class="block text-md mb-1 md:text-xl">Biografia</strong>{{ bio || "No especificado" }}
         </p>
     </div>
 </template>

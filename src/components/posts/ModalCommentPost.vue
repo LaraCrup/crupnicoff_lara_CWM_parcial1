@@ -1,12 +1,12 @@
 <template>
     <div v-if="show" class="fixed inset-0 bg-dark/60 flex items-center justify-center">
-        <div class="relative max-w-2xl w-full flex flex-col gap-6 bg-light rounded-xl p-12">
-            <div class="absolute top-2 right-4">
+        <div class="relative w-[88vw] flex flex-col gap-6 bg-light rounded-xl py-10 px-4 md:max-w-[588px] lg:max-w-2xl lg:w-full lg:p-12">
+            <div class="absolute top-0 right-2 lg:top-2 lg:right-4">
                 <button @click="$emit('close')" class="text-darkGreen text-5xl">&times;</button>
             </div>
-            <HabitUpdateCard :username="habitData.profiles.display_name" :posted_at="habitData.created_at"
+            <HabitUpdateCard class="w-full md:max-w-full" :username="habitData.profiles.display_name" :posted_at="new Date(habitData.created_at).toLocaleDateString()"
                 :habit="habitData.habits.title" :goal_quantity="habitData.habits.goal_quantity"
-                :goal_unit="habitData.habits.goal_unit" :frequency="habitData.habits.frequency"
+                :goal_unit="habitData.habits.goal_unit" :frequency="transformFrequency(habitData.habits.frequency)"
                 :content="habitData.content" :user_id="habitData.user_id" :isCurrentUser="isCurrentUser" :commenting="true" />
             <SectionComments :post_id="habitData.id" :username="habitData.profiles?.display_name"
                 :posted_at="new Date(habitData.created_at).toLocaleDateString()" :comment="habitData.content" />
@@ -37,6 +37,16 @@ export default {
             type: Boolean,
             default: false
         }
-    }
+    },
+    methods: {
+        transformFrequency(frequency) {
+            const frequencyMap = {
+                'diario': 'día',
+                'semanal': 'semana',
+                'mensual': 'mes'
+            };
+            return frequencyMap[frequency] || frequency;
+        },
+    },
 }
 </script>

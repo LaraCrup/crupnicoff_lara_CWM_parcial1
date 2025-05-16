@@ -46,17 +46,17 @@ export default {
 <template>
     <MainSection class="relative">
         <MainH1>Mi Perfil</MainH1>
-        <div class="absolute top-0 right-0 flex gap-4">
+        <div class="flex flex-col items-center gap-4 md:flex-row lg:absolute lg:top-0 lg:right-0">
             <router-link to="/mi-perfil/editar"
-                class="text-light font-semibold bg-midGreen rounded-3xl py-2 px-4 hover:bg-darkGreen transition duration-300">Editar</router-link>
+                class=" w-fit flex items-center text-light font-semibold bg-midGreen rounded-3xl py-2 px-4 hover:bg-darkGreen transition duration-300">Editar</router-link>
             <router-link to="/mi-perfil/cambiar-contrasena"
-                class="text-light font-semibold bg-midGreen rounded-3xl py-2 px-4 hover:bg-darkGreen transition duration-300">Cambiar contraseña</router-link>
+                class="flex items-center text-light font-semibold bg-midGreen rounded-3xl py-2 px-4 hover:bg-darkGreen transition duration-300">Cambiar contraseña</router-link>
         </div>
         <ProfileCard :email="user.email" :display_name="user.display_name" :bio="user.bio" />
     </MainSection>
     <MainSection>
         <h2 class="text-2xl font-bold text-darkGreen mt-8">Posts del usuario</h2>
-        <div v-if="userPosts.length > 0" class="w-full grid grid-cols-3 justify-between gap-12">
+        <div v-if="userPosts.length > 0" class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
             <HabitUpdateCard 
                 v-for="habitPost in userPosts"
                 :key="habitPost.id"

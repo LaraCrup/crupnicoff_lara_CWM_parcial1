@@ -113,7 +113,7 @@ export default {
     <MainSection>
         <MainH1>Editar hábito</MainH1>
         <MainLayout @submit.prevent="updateHabit()">
-            <div class="w-full grid grid-cols-2 gap-8">
+            <div class="w-full flex flex-col gap-5 md:grid md:grid-cols-2 md:gap-8">
                 <TextField id="title" label="Título del hábito" type="text" v-model="habit.title"
                     placeholder="Título del hábito" autocomplete="false" :error="errors.title" />
                 <TextField id="goal_quantity" label="Valor del hábito" type="number" v-model="habit.goal_quantity"

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center justify-center gap-2 bg-midGreen/60 rounded-xl shadow-lg py-6 px-4">
+    <div class="w-68 h-full flex flex-col items-center justify-center gap-2 bg-midGreen/60 rounded-xl shadow-lg py-6 px-4 md:max-w-90 md:w-full lg:max-w-full">
         <h2 class="text-xl font-semibold">{{ title }}</h2>
         <p>{{ goal_quantity }} {{ goal_unit }} por {{ frequency }}</p>
         <div class="flex gap-4 mt-2">

@@ -32,9 +32,9 @@ export default {
 </script>
 
 <template>
-  <nav class="flex items-center justify-between py-8 px-24 bg-darkGreen text-lightPink">
+  <nav class="w-full flex flex-col items-center justify-between bg-darkGreen text-lightPink px-6 py-3 lg:flex-row lg:px-24 lg:py-8">
     <router-link to="/" class="text-xl font-bold">Hábitos Conectados</router-link>
-    <ul class="flex items-center gap-12 ">
+    <ul class="h-19 flex flex-wrap items-center justify-center gap-4 md:h-fit md:gap-12">
       <template v-if="user.id === null">
         <LinkMenu link="/log-in">Iniciar Sesión</LinkMenu>
         <LinkMenu link="/register">Registrarse</LinkMenu>
@@ -51,10 +51,10 @@ export default {
       </template>
     </ul>
   </nav>
-  <main class="py-12 px-24 bg-light">
+  <main class="w-full bg-light p-6 lg:py-12 lg:px-24">
     <RouterView />
   </main>
-  <footer class="flex justify-center items-center h-20 bg-darkGreen text-lightPink font-semibold">
-    <p>Lara Crupnicoff - Da Vinci</p>
+  <footer class="w-full flex justify-center items-center bg-darkGreen text-lightPink font-semibold">
+    <p class="text-sm lg:text-md">Lara Crupnicoff - Da Vinci</p>
   </footer>
 </template>

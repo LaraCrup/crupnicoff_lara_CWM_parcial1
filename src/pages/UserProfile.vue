@@ -50,7 +50,7 @@ export default {
     </MainSection>
     <MainSection>
         <h2 class="text-2xl font-bold text-darkGreen mt-8">Posts del usuario</h2>
-        <div v-if="userPosts.length > 0" class="w-full grid grid-cols-3 justify-between gap-12">
+        <div v-if="userPosts.length > 0" class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
             <HabitUpdateCard 
                 v-for="habitPost in userPosts"
                 :key="habitPost.id"

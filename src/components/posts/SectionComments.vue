@@ -4,7 +4,7 @@
         <div class="flex flex-col gap-2 overflow-y-auto max-h-70">
             <div v-if="comments.length > 0" class="flex flex-col gap-4">
                 <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-1 border-l-2 border-darkPink px-4">
-                    <div class="flex justify-between items-center">
+                    <div class="flex flex-wrap justify-between items-center">
                         <p class="font-medium text-darkPink">{{ comment.profiles.display_name }}</p>
                         <p class="text-sm text-gray-600">{{ new Date(comment.created_at).toLocaleDateString() }}</p>
                     </div>
@@ -15,7 +15,7 @@
         </div>
         <form action="#" @submit.prevent="sendComment()" class="flex flex-col gap-2 items-end">
             <MainLabel for="comment" class="sr-only">Escribe un comentario</MainLabel>
-            <MainTextarea
+            <MainTextarea class="h-20"
                 id="comment"
                 v-model="newComment.content"
                 placeholder="Escribe un comentario..."

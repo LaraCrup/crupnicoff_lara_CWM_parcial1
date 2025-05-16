@@ -10,6 +10,9 @@
     --color-dark: #101B15;
     --color-light: #F0F8F1;
     --color-error: #950707;
+    --breakpoint-xs: 320px;
+    --breakpoint-md: 660px;
+    --breakpoint-lg: 1080px;
 }
 
 * {

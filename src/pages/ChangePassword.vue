@@ -86,9 +86,8 @@ export default {
         <SystemAlert v-if="changeSuccess">
             <p>¡Contraseña actualizada exitosamente!</p>
         </SystemAlert>
-        <MainLayout action="#" @submit.prevent="handleSubmit">
-            <div class="w-full grid grid-cols-2 gap-8">
-                <TextField 
+        <MainLayout action="#" @submit.prevent="handleSubmit" class="max-w-2xl">
+            <TextField 
                     id="currentPassword" 
                     label="Contraseña actual" 
                     type="password" 
@@ -106,7 +105,6 @@ export default {
                     :error="errors.newPassword"
                     autocomplete="false" 
                 />
-            </div>
             <MainError v-if="supabaseError">{{ supabaseError }}</MainError>
             <PrimaryButton type="submit">Cambiar contraseña</PrimaryButton>
         </MainLayout>

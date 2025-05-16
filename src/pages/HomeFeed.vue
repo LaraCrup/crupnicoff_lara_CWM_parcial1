@@ -57,7 +57,7 @@ export default {
     <MainSection>
         <MainH1>Habitos Conectados</MainH1>
         <PrimaryButton><router-link to="/documentar-habito">Documentar nuevo habito</router-link></PrimaryButton>
-        <div class="w-full grid grid-cols-3 justify-between gap-12">
+        <div class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
             <HabitUpdateCard 
                 v-for="habitPost in habitUpdates"
                 :key="habitPost.id"

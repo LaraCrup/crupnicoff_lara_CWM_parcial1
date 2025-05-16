@@ -66,7 +66,7 @@ export default {
         <MainH1>Mis Hábitos</MainH1>
         <PrimaryButton><router-link to="/mis-habitos/crear">Crear nuevo hábito</router-link></PrimaryButton>
         
-        <div v-if="habits.length > 0" class="w-full grid grid-cols-3 justify-between gap-12">
+        <div v-if="habits.length > 0" class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
             <HabitCard 
                 v-for="habit in habits" 
                 :key="habit.id"

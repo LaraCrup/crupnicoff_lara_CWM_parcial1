@@ -58,8 +58,8 @@ export default {
 <template>
   <MainSection>
     <MainH1>Ingresar a mi Cuenta</MainH1>
-    <MainLayout action="" @submit.prevent="handleSubmit" >
-      <div class="w-full grid grid-cols-2 gap-8">
+    <MainLayout action="#" @submit.prevent="handleSubmit" >
+      <div class="w-full flex flex-col gap-5 md:grid md:grid-cols-2 md:gap-8">
         <TextField 
           id="email" 
           label="Email" 
