@@ -6,11 +6,12 @@ import PrimaryButton from '../components/PrimaryButton.vue';
 import DeleteModal from '../components/DeleteModal.vue';
 import { subscribeToAuth } from '../services/auth';
 import { getMyHabits, deleteHabit } from '../services/my-habits';
+import MainLoader from '../components/MainLoader.vue';
 
 export default {
     name: 'MyHabits',
     components: {
-        MainH1, MainSection, PrimaryButton, HabitCard, DeleteModal
+        MainH1, MainSection, PrimaryButton, HabitCard, DeleteModal, MainLoader
     },
     data() {
         return {
@@ -20,13 +21,15 @@ export default {
             },
             habits: [],
             showDeleteModal: false,
-            habitToDelete: null
+            habitToDelete: null,
+            loading: true,
         }
     },
     methods: {
         async loadHabits() {
             if (this.user.id) {
                 this.habits = await getMyHabits(this.user.id);
+                this.loading = false;
             }
         },
         async handleDeleteIntent(habitId) {
@@ -65,8 +68,8 @@ export default {
     <MainSection>
         <MainH1>Mis Hábitos</MainH1>
         <PrimaryButton><router-link to="/mis-habitos/crear">Crear nuevo hábito</router-link></PrimaryButton>
-        
-        <div v-if="habits.length > 0" class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
+        <MainLoader v-if="loading" />
+        <div v-else-if="!loading && habits.length > 0" class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
             <HabitCard 
                 v-for="habit in habits" 
                 :key="habit.id"

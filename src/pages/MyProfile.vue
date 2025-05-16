@@ -5,11 +5,12 @@ import { subscribeToAuth } from '../services/auth';
 import ProfileCard from '../components/ProfileCard.vue';
 import { getHabitUpdatesByUserId } from '../services/document-habits.js';
 import HabitUpdateCard from '../components/posts/HabitUpdateCard.vue';
+import MainLoader from '../components/MainLoader.vue';
 
 export default {
     name: 'MyProfile',
     components: {
-        MainH1, MainSection, ProfileCard, HabitUpdateCard
+        MainH1, MainSection, ProfileCard, HabitUpdateCard, MainLoader
     },
     data() {
         return {
@@ -19,7 +20,8 @@ export default {
                 bio: null,
                 display_name: null,
             },
-            userPosts: []
+            userPosts: [],
+            loading: true
         }
     },
     methods: {
@@ -36,6 +38,7 @@ export default {
         subscribeToAuth(newUserData => this.user = newUserData);
         try {
             this.userPosts = await getHabitUpdatesByUserId(this.user.id);
+            this.loading = false;
         } catch (error) {
             console.error('Error loading profile data:', error);
         }
@@ -56,7 +59,8 @@ export default {
     </MainSection>
     <MainSection>
         <h2 class="text-2xl font-bold text-darkGreen mt-8">Posts del usuario</h2>
-        <div v-if="userPosts.length > 0" class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
+        <MainLoader v-if="loading" />
+        <div v-else-if="!loading && userPosts.length > 0" class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
             <HabitUpdateCard 
                 v-for="habitPost in userPosts"
                 :key="habitPost.id"

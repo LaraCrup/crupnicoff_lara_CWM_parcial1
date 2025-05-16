@@ -6,11 +6,12 @@ import { subscribeToAuth } from '../services/auth';
 import { getAllHabitUpdates } from '../services/document-habits';
 import HabitUpdateCard from '../components/posts/HabitUpdateCard.vue';
 import ModalCommentPost from '../components/posts/ModalCommentPost.vue';
+import MainLoader from '../components/MainLoader.vue';
 
 export default {
     name: 'HomeFeed',
     components: {
-        MainSection, MainH1, PrimaryButton, HabitUpdateCard, ModalCommentPost
+        MainSection, MainH1, PrimaryButton, HabitUpdateCard, ModalCommentPost, MainLoader
     },
     data() {
         return {
@@ -20,13 +21,11 @@ export default {
             },
             habitUpdates: [],
             showModal: false,
-            selectedHabit: null
+            selectedHabit: null,
+            loading: true,
         }
     },
     methods: {
-        async loadHabitUpdates() {
-            this.habitUpdates = await getAllHabitUpdates();
-        },
         transformFrequency(frequency) {
             const frequencyMap = {
                 'diario': 'día',
@@ -44,11 +43,16 @@ export default {
             this.selectedHabit = null
         }
     },
-    mounted() {
+    async mounted() {
         subscribeToAuth(newUserData => {
             this.user = newUserData;
-            this.loadHabitUpdates();
         });
+        try {
+            this.habitUpdates = await getAllHabitUpdates();
+            this.loading = false;
+        } catch (error) {
+            console.error('Error loading habit updates:', error);
+        }
     }
 }
 </script>
@@ -57,7 +61,8 @@ export default {
     <MainSection>
         <MainH1>Habitos Conectados</MainH1>
         <PrimaryButton><router-link to="/documentar-habito">Documentar nuevo habito</router-link></PrimaryButton>
-        <div class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
+        <MainLoader v-if="loading" />
+        <div v-else class="w-full flex flex-col items-center gap-6 md:grid md:grid-cols-2 md:justify-items-center lg:grid-cols-3 lg:justify-between lg:gap-12">
             <HabitUpdateCard 
                 v-for="habitPost in habitUpdates"
                 :key="habitPost.id"

@@ -1,8 +1,8 @@
 <template>
     <div v-if="show" class="fixed inset-0 bg-dark/60 flex items-center justify-center">
-        <div class="relative w-[88vw] flex flex-col gap-6 bg-light rounded-xl py-10 px-4 md:max-w-[588px] lg:max-w-2xl lg:w-full lg:p-12">
+        <div class="relative w-[88vw] h-[95vh] flex flex-col gap-6 bg-light rounded-xl py-10 px-4 md:max-h-[90vh] md:max-w-[588px] lg:max-h-[95vh]  lg:max-w-2xl lg:w-full lg:p-12">
             <div class="absolute top-0 right-2 lg:top-2 lg:right-4">
-                <button @click="$emit('close')" class="text-darkGreen text-5xl">&times;</button>
+                <button @click="$emit('close')" class="text-darkGreen text-5xl cursor-pointer">&times;</button>
             </div>
             <HabitUpdateCard class="w-full md:max-w-full" :username="habitData.profiles.display_name" :posted_at="new Date(habitData.created_at).toLocaleDateString()"
                 :habit="habitData.habits.title" :goal_quantity="habitData.habits.goal_quantity"

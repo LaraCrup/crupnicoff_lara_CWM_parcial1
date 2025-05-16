@@ -1,7 +1,8 @@
 <template>
     <div class="flex flex-col gap-4 bg-lightGreen rounded-lg p-4">
         <h3 class="text-lg font-semibold text-darkGreen">Comentarios</h3>
-        <div class="flex flex-col gap-2 overflow-y-auto max-h-70">
+        <MainLoader v-if="loading" />
+        <div v-else class="max-h-30 flex flex-col gap-2 overflow-y-auto md:max-h-20 lg:max-h-35">
             <div v-if="comments.length > 0" class="flex flex-col gap-4">
                 <div v-for="comment in comments" :key="comment.id" class="flex flex-col gap-1 border-l-2 border-darkPink px-4">
                     <div class="flex flex-wrap justify-between items-center">
@@ -15,7 +16,7 @@
         </div>
         <form action="#" @submit.prevent="sendComment()" class="flex flex-col gap-2 items-end">
             <MainLabel for="comment" class="sr-only">Escribe un comentario</MainLabel>
-            <MainTextarea class="h-20"
+            <MainTextarea class="h-10 lg:h-full"
                 id="comment"
                 v-model="newComment.content"
                 placeholder="Escribe un comentario..."
@@ -31,11 +32,12 @@ import { saveCommentsPost, getComments, suscribeToPostComments } from '../../ser
 import { subscribeToAuth } from '../../services/auth';
 import MainLabel from '../form/MainLabel.vue';
 import MainTextarea from '../form/MainTextarea.vue';
+import MainLoader from '../MainLoader.vue';
 
 export default {
     name: 'SectionComments',
     components: {
-        PrimaryButton, MainLabel, MainTextarea
+        PrimaryButton, MainLabel, MainTextarea, MainLoader
     },
     data() {
         return {
@@ -49,6 +51,7 @@ export default {
                 email: null,
                 display_name: null,
             },
+            loading: true,
         }
     },
     props: {
@@ -73,6 +76,7 @@ export default {
         async loadComments() {
             try {
                 this.comments = await getComments(this.post_id);
+                this.loading = false;
             } catch (error) {
                 console.error("Error al cargar los comentarios:", error);
             }

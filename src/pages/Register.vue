@@ -95,7 +95,7 @@ export default {
     <SystemAlert v-if="registrationSuccess">
       <p>¡Registro exitoso! Por favor, verifica tu email antes de iniciar sesión.</p>
     </SystemAlert>
-    <MainLayout action="#" @submit.prevent="handleSubmit">
+    <MainLayout action="#" @submit.prevent="handleSubmit" >
       <div class="w-full flex flex-col gap-5 md:grid md:grid-cols-2 md:gap-8">
         <TextField id="display_name" label="Nombre de usuario" type="text" v-model="user.display_name" 
           placeholder="Nombre de usuario" :error="errors.display_name" />
