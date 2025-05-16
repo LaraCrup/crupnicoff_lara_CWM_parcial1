@@ -65,7 +65,6 @@ export default {
         subscribeToAuth(newUserData => {
             this.user = newUserData;
             this.loadHabits().then(() => {
-                // Get habit ID from URL query parameter
                 const habitId = this.$route.query.habit;
                 if (habitId) {
                     this.selectedHabit = habitId;
