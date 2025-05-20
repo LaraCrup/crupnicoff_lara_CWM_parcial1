@@ -6,7 +6,7 @@
             <router-link :to="`/mis-habitos/editar/${id}`" class="bg-lightGreen text-dark rounded-3xl py-1 px-4">
                 Editar
             </router-link>
-            <button @click="$emit('delete', id)" class="bg-lightGreen text-dark rounded-3xl py-1 px-4">
+            <button @click="$emit('delete', id)" class="bg-lightGreen text-dark rounded-3xl cursor-pointer py-1 px-4">
                 Eliminar
             </button>
         </div>

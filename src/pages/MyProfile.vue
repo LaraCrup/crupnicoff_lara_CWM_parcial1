@@ -6,6 +6,7 @@ import ProfileCard from '../components/ProfileCard.vue';
 import { getHabitUpdatesByUserId } from '../services/document-habits.js';
 import HabitUpdateCard from '../components/posts/HabitUpdateCard.vue';
 import MainLoader from '../components/MainLoader.vue';
+import { transformFrequency } from '../utils/transformFrequency.js';
 
 export default {
     name: 'MyProfile',
@@ -25,14 +26,7 @@ export default {
         }
     },
     methods: {
-        transformFrequency(frequency) {
-            const frequencyMap = {
-                'diario': 'día',
-                'semanal': 'semana',
-                'mensual': 'mes'
-            };
-            return frequencyMap[frequency] || frequency;
-        }
+        transformFrequency
     },
     async mounted() {
         subscribeToAuth(newUserData => this.user = newUserData);

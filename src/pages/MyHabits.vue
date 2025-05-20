@@ -7,6 +7,7 @@ import DeleteModal from '../components/DeleteModal.vue';
 import { subscribeToAuth } from '../services/auth';
 import { getMyHabits, deleteHabit } from '../services/my-habits';
 import MainLoader from '../components/MainLoader.vue';
+import { transformFrequency } from '../utils/transformFrequency.js';
 
 export default {
     name: 'MyHabits',
@@ -46,14 +47,7 @@ export default {
             this.showDeleteModal = false;
             this.habitToDelete = null;
         },
-        transformFrequency(frequency) {
-            const frequencyMap = {
-                'diario': 'día',
-                'semanal': 'semana',
-                'mensual': 'mes'
-            };
-            return frequencyMap[frequency] || frequency;
-        }
+        transformFrequency
     },
     mounted() {
         subscribeToAuth(newUserData => {

@@ -20,7 +20,6 @@ export default {
   },
   methods: {
     handleLogout() {
-      console.log('Intentando cerrar sesión...');
       logout();
       this.$router.push('/log-in');
     }

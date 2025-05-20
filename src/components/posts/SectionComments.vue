@@ -16,7 +16,7 @@
         </div>
         <form action="#" @submit.prevent="sendComment()" class="flex flex-col gap-2 items-end">
             <MainLabel for="comment" class="sr-only">Escribe un comentario</MainLabel>
-            <MainTextarea class="h-10 lg:h-full"
+            <MainTextarea class="h-11 lg:h-full"
                 id="comment"
                 v-model="newComment.content"
                 placeholder="Escribe un comentario..."
@@ -91,7 +91,6 @@ export default {
                     post_id: this.post_id
                 });
                 this.newComment.content = '';
-                await this.loadComments();
             } catch (error) {
                 console.error("Error al enviar el comentario:", error);
             }

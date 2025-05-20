@@ -61,12 +61,6 @@ export async function register(email, password, display_name) {
             display_name: display_name,
         });
 
-        updateUser({
-            id: data.user.id,
-            email: data.user.email,
-            display_name: display_name
-        });
-
         return data.user;
     } catch (error) {
         console.error('Error al crear el perfil:', error);
@@ -80,7 +74,7 @@ export async function login(email, password) {
         password,
     });
     if (error) {
-        console.log('Error al hacer log in:', error);
+        console.error('Error al hacer log in:', error);
         throw new Error(error.message);
     }
 

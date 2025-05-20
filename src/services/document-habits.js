@@ -52,6 +52,9 @@ export async function getHabitUpdatesByUserId(userId) {
                 goal_quantity,
                 goal_unit,
                 frequency
+            ),
+            profiles (
+                display_name
             )
         `)
         .eq('user_id', userId)

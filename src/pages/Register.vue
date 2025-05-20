@@ -7,11 +7,12 @@ import MainError from '../components/form/MainError.vue';
 import MainSection from '../components/MainSection.vue';
 import MainLayout from '../components/form/MainLayout.vue';
 import SystemAlert from '../components/SystemAlert.vue';
+import MainLoader from '../components/MainLoader.vue';
 
 export default {
   name: 'Register',
   components: {
-    MainH1, TextField, PrimaryButton, MainError, MainSection, MainLayout, SystemAlert
+    MainH1, TextField, PrimaryButton, MainError, MainSection, MainLayout, SystemAlert, MainLoader
   },
   data() {
     return {
@@ -26,7 +27,8 @@ export default {
         display_name: ''
       },
       supabaseError: "",
-      registrationSuccess: false
+      registrationSuccess: false,
+      loading: false,
     }
   },
   methods: {
@@ -68,6 +70,7 @@ export default {
       return true;
     },
     async handleSubmit() {
+      this.loading = true;
       this.supabaseError = "";
       this.registrationSuccess = false;
       if (!this.validateEmail() || !this.validatePassword() || !this.validateDisplayName()) {
@@ -80,6 +83,7 @@ export default {
           this.user.password = '';
           this.user.display_name = '';
           this.registrationSuccess = true;
+          this.loading = false;
         }
       } catch (error) {
         this.supabaseError = error.message;
@@ -92,13 +96,14 @@ export default {
 <template>
   <MainSection>
     <MainH1>Registrate</MainH1>
-    <SystemAlert v-if="registrationSuccess">
+    <MainLoader v-if="loading" />
+    <SystemAlert v-else-if="!loading && registrationSuccess">
       <p>¡Registro exitoso! Por favor, verifica tu email antes de iniciar sesión.</p>
     </SystemAlert>
     <MainLayout action="#" @submit.prevent="handleSubmit" >
       <div class="w-full flex flex-col gap-5 md:grid md:grid-cols-2 md:gap-8">
         <TextField id="display_name" label="Nombre de usuario" type="text" v-model="user.display_name" 
-          placeholder="Nombre de usuario" :error="errors.display_name" />
+          placeholder="Nombre de usuario" :error="errors.display_name" autocomplete="false" />
         <TextField id="email" label="Email" type="email" v-model="user.email" placeholder="Email" 
           autocomplete="email" :error="errors.email" />
         <TextField id="password" label="Contraseña" type="password" v-model="user.password" 

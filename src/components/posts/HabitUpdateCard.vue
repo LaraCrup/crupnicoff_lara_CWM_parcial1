@@ -34,7 +34,7 @@ export default {
                 content: this.content,
                 user_id: this.user_id,
                 isCurrentUser: this.isCurrentUser
-            }
+            }            
             this.$emit('open-comments', habitData)
         }
     },

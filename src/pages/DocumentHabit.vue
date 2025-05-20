@@ -9,11 +9,12 @@ import { subscribeToAuth } from '../services/auth';
 import { getMyHabits } from '../services/my-habits';
 import { saveHabitDocument } from '../services/document-habits';
 import PrimaryButton from '../components/PrimaryButton.vue';
+import MainLoader from '../components/MainLoader.vue';
 
 export default {
     name: 'CreatePost',
     components: {
-        MainSection, MainH1, MainLayout, MainError, MainLabel, PrimaryButton, MainTextarea
+        MainSection, MainH1, MainLayout, MainError, MainLabel, PrimaryButton, MainTextarea, MainLoader
     },
     data() {
         return {
@@ -24,6 +25,7 @@ export default {
             habits: [],
             selectedHabit: '',
             content: '',
+            loading: true,
             errors: {
                 habit: null,
                 content: null,
@@ -35,6 +37,7 @@ export default {
         async loadHabits() {
             if (this.user.id) {
                 this.habits = await getMyHabits(this.user.id);
+                this.loading = false;
             }
         },
         async handleSubmit() {
@@ -79,7 +82,16 @@ export default {
 <template>
     <MainSection>
         <MainH1>Documentar un hábito</MainH1>
-        <MainLayout @submit.prevent="handleSubmit" class="max-w-2xl">
+        <MainLoader v-if="loading" />
+        
+        <div v-else-if="habits.length === 0" class="flex flex-col items-center gap-4">
+            <p>No tienes ningún hábito creado. Debes crear un hábito antes de poder documentarlo.</p>
+            <PrimaryButton>
+                <router-link to="/mis-habitos/crear">Crear nuevo hábito</router-link>
+            </PrimaryButton>
+        </div>
+        
+        <MainLayout v-else @submit.prevent="handleSubmit" class="max-w-2xl">
             <div class="w-full flex flex-col gap-2">
                 <MainLabel :for="'habit'">Hábito</MainLabel>
                 <select id="habit" v-model="selectedHabit"

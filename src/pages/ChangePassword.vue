@@ -20,12 +20,12 @@ export default {
                 email: null,
             },
             form: {
-                currentPassword: '',
                 newPassword: '',
+                passwordConfirmation: '',
             },
             errors: {
-                currentPassword: '',
-                newPassword: ''
+                newPassword: '',
+                passwordConfirmation: ''
             },
             supabaseError: "",
             changeSuccess: false
@@ -34,20 +34,23 @@ export default {
     methods: {
         validateForm() {
             let isValid = true;
-            this.errors.currentPassword = '';
             this.errors.newPassword = '';
+            this.errors.passwordConfirmation = '';
             this.supabaseError = '';
-
-            if (!this.form.currentPassword) {
-                this.errors.currentPassword = 'La contraseña actual es requerida';
-                isValid = false;
-            }
 
             if (!this.form.newPassword) {
                 this.errors.newPassword = 'La nueva contraseña es requerida';
                 isValid = false;
             } else if (this.form.newPassword.length < 6) {
                 this.errors.newPassword = 'La contraseña debe tener al menos 6 caracteres';
+                isValid = false;
+            }
+
+            if (!this.form.passwordConfirmation) {
+                this.errors.passwordConfirmation = 'La confirmación de contraseña es requerida';
+                isValid = false;
+            } else if (this.form.newPassword !== this.form.passwordConfirmation) {
+                this.errors.passwordConfirmation = 'Las contraseñas no coinciden';
                 isValid = false;
             }
 
@@ -61,8 +64,8 @@ export default {
 
             try {
                 await changePassword(this.form.newPassword);
-                this.form.currentPassword = '';
                 this.form.newPassword = '';
+                this.form.passwordConfirmation = '';
                 this.changeSuccess = true;
                 setTimeout(() => {
                     this.$router.push('/mi-perfil');
@@ -88,23 +91,23 @@ export default {
         </SystemAlert>
         <MainLayout action="#" @submit.prevent="handleSubmit" class="max-w-2xl">
             <TextField 
-                    id="currentPassword" 
-                    label="Contraseña actual" 
-                    type="password" 
-                    v-model="form.currentPassword"
-                    placeholder="Contraseña actual" 
-                    :error="errors.currentPassword"
-                    autocomplete="false" 
-                />
-                <TextField 
-                    id="newPassword" 
-                    label="Nueva contraseña" 
-                    type="password" 
-                    v-model="form.newPassword"
-                    placeholder="Nueva contraseña" 
-                    :error="errors.newPassword"
-                    autocomplete="false" 
-                />
+                id="newPassword" 
+                label="Nueva contraseña" 
+                type="password" 
+                v-model="form.newPassword"
+                placeholder="Nueva contraseña" 
+                :error="errors.newPassword"
+                autocomplete="false" 
+            />
+            <TextField 
+                id="passwordConfirmation" 
+                label="Confirmar contraseña" 
+                type="password" 
+                v-model="form.passwordConfirmation"
+                placeholder="Confirmar contraseña" 
+                :error="errors.passwordConfirmation"
+                autocomplete="false" 
+            />
             <MainError v-if="supabaseError">{{ supabaseError }}</MainError>
             <PrimaryButton type="submit">Cambiar contraseña</PrimaryButton>
         </MainLayout>

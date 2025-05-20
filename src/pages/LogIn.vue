@@ -45,7 +45,6 @@ export default {
     async handleSubmit() {
       try {
         const user = await login(this.user.email, this.user.password);
-        console.log("Usuario logueado con éxito", user);
         this.$router.push('/');
       } catch (error) {
         this.supabaseError = error.message;

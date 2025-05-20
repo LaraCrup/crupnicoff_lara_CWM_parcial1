@@ -5,11 +5,11 @@
             <p class="text-center">¿Estás seguro de que quieres eliminar este hábito?</p>
             <div class="flex gap-4">
                 <button @click="$emit('cancel')" 
-                    class="bg-lightGreen text-dark rounded-3xl py-2 px-6">
+                    class="bg-lightGreen text-dark rounded-3xl cursor-pointer py-2 px-6">
                     Cancelar
                 </button>
                 <button @click="$emit('confirm')" 
-                    class="bg-error text-light rounded-3xl py-2 px-6">
+                    class="bg-error text-light rounded-3xl cursor-pointer py-2 px-6">
                     Eliminar
                 </button>
             </div>
